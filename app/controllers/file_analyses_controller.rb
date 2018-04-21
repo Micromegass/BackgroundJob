@@ -7,15 +7,8 @@ class FileAnalysesController < ApplicationController
     file = params[:file]
 
     file_analysis = FileAnalysis.create(filename: file.original_filename, analyzed_rows: 0)
+    FileAnalyzerJob.perform_later(file.tempfile.path, file_analysis)
 
-    #perform the file analysis
-    csv = CSV.new(file.tempfile)
-    file_analysis.update(status: :processing)
-    csv.each do |row|
-      sleep 5 #simulate heavy processing
-      file_analysis.update(analyzed_rows: file_analysis.analyzed_rows + 1)
-      end
-      file_analysis.update(status: :finished)
 
       redirect_to file_analysis
   end
