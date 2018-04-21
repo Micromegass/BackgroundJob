@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h1>Analyze File</h1>
+      <%= form_tag({ action: "create" }, multipart: true)  do |f| %>
+        <div class="form-group">
+          <%= file_field_tag :file, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= submit_tag 'Analize', class: 'btn btn-primary'%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
